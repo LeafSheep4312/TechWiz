@@ -1,0 +1,45 @@
+@media (max-width: 899px)
+{
+    #About img {
+       display: block;
+
+    }
+    #About_content {
+        margin-left: 0;
+        margin-bottom: 50px;
+    }
+    #About_content #About_main
+    {
+        display: none;
+    }
+    #project .header, #project .subtitle {
+        margin-left: 25%;
+        margin-right: 25%;
+    }
+}
+@media (max-width: 740px) {
+    #navHead
+    {
+        padding: 0 25px;
+    }
+    #navHead .mobile {
+        display: block;
+    }
+    #navbar {
+        display: none;
+    }
+    #About {
+        display: block;
+    }
+    #About img {
+        width: 100%;
+    }
+    #About_content {
+        width: 100%;
+    }
+
+    #project .header, #project .subtitle {
+        margin-left: 10%;
+        margin-right: 10%;
+    }
+}

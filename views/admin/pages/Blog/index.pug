@@ -1,0 +1,49 @@
+extends ../../layouts/default.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+
+block main
+    h1 Danh sách bài viết 
+
+
+    .card.mb-3 
+        .card-header 
+        .card-body 
+            .row 
+                .col-6
+                    each item in filterStatus 
+
+                        button(
+                            class=`btn btn-sm ml-1 btn-outline-dark ${item.class}`
+                            button-status=item.status
+                        ) #{item.name}
+                .col-6
+                    +search(keyword)
+
+    .card.mb-3 
+        .card-header 
+        .card-body
+            .row 
+                .col-8
+                    +form-change-multi(`${prefixAdmin}/project/change-multi?_method=PATCH`)
+                .col-4
+                    a(
+                        href=`${prefixAdmin}/project/create`
+                        class="btn btn-outline-success"
+                    ) + Add new 
+
+
+
+
+
+    .row.row-cols-1.row-cols-md-3
+        .col.mb-4
+            .card.h-100
+            img.card-img-top(src='...' alt='...')
+            .card-body
+                h5.card-title Card title
+                p.card-text
+                | This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+        

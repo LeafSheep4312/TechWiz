@@ -1,0 +1,38 @@
+.header{
+    background: #202020; 
+    padding: 10px 0;
+    position: sticky;
+    top: 0; 
+    z-index: 999;
+}
+
+.header .inner-logo img {
+    height: 35px;
+}
+
+.header .col-6 a {
+    display: inline; 
+    margin-right: 40px; 
+    color: white;
+}
+
+.header .col-6 a:hover{
+    color:rgba(87, 6, 157, 0.716);
+    cursor: pointer;
+}
+
+.body .main {
+    margin: 15px;
+    position: relative;
+    height: calc(100% - 35px);
+}
+
+.center-image img {
+    width: auto;
+}
+
+.header .inner-contact i.fab.fa-facebook {
+    color: white ; /* Facebook blue color */
+    font-size: 20px; /* Icon size */
+    margin-right: 8px; /* Space between icon and text */
+}

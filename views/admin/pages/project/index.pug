@@ -1,0 +1,126 @@
+extends ../../layouts/default.pug
+include ../../mixins/search.pug
+include ../../mixins/pagination.pug
+include ../../mixins/form-change-multi.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-success(3000)
+
+    .card.mb-3 
+        .card-header 
+        .card-body 
+            .row 
+                .col-6
+                    each item in filterStatus 
+
+                        button(
+                            class=`btn btn-sm ml-1 btn-outline-dark ${item.class}`
+                            button-status=item.status
+                        ) #{item.name}
+                .col-6
+                    +search(keyword)
+
+    .card.mb-3 
+        .card-header 
+        .card-body
+            .row 
+                .col-8
+                    +form-change-multi(`${prefixAdmin}/project/change-multi?_method=PATCH`)
+                .col-4
+                    a(
+                        href=`${prefixAdmin}/project/create`
+                        class="btn btn-outline-success"
+                    ) + Add new 
+            table(
+                class="table table-hover table-sm"
+                checkbox-multi
+            )
+                thead 
+                    tr
+                        th 
+                            input(type="checkbox" name="checkall")
+                        th Title
+                        th Image
+                        th Leader
+                        th Published Day
+                        th Status 
+                        th Action
+                tbody 
+                    each item,index in projects
+                        tr 
+                            td 
+                                input(
+                                    type="checkbox"
+                                    name="id"
+                                    value=item.id
+                                )
+                            //- td #{index+1}
+                            td #{item.title} 
+                            td 
+                                img(
+                                    src=item.thumbnail
+                                    alt=item.title 
+                                    width="100px"
+                                    height="auto"
+                                )
+                            td #{item.leader}
+                            td #{item.createDate}
+                            td
+                                if item.status == "In Progress"
+                                    a(
+                                        href="javascript:;" 
+                                        button-change-status
+                                        data-status=item.status
+                                        data-id=item.id
+                                        class="badge badge-info"
+                                    ) In Progress
+                                else if item.status == "Planned"
+                                    a(
+                                        href="javascript:;" 
+                                        button-change-status
+                                        data-status=item.status
+                                        data-id=item.id
+                                        class="badge badge-primary"
+                                    ) Planned
+                                else 
+                                    a(
+                                        href="javascript:;" 
+                                        button-change-status
+                                        data-status=item.status
+                                        data-id=item.id
+                                        class="badge badge-success"
+                                    ) Completed   
+                            td 
+                                a(
+                                    href=`${prefixAdmin}/project/detail/${item.id}`
+                                    class="btn btn-secondary btn-sm" 
+                                ) Detail
+                                a(
+                                    href=`${prefixAdmin}/project/edit/${item.id}`
+                                    class="btn btn-warning btn-sm ml-1" 
+                                ) Edit
+                                button(
+                                    data-id = item.id 
+                                    delete-button
+                                    class="btn btn-danger btn-sm ml-1"
+                                ) Delete
+
+    +pagination(pagination)
+
+    form(
+        action=""
+        method="POST"
+        id="form-change-status"
+        data-path=`${prefixAdmin}/project/change-status`
+    )
+
+    form(
+        action=""
+        method="POST"
+        id="form-delete-item"
+        data-path=`${prefixAdmin}/project/delete`
+    )
+
+    script(src="/admin/js/project.js") 
+

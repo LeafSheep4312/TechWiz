@@ -1,0 +1,29 @@
+extends ../../layouts/default.pug
+
+block main
+    h1(class="mb-4") #{proj.title}
+    if(proj.description.overview)
+        p <b>Overview</b> #{proj.description.overview}
+    if(proj.description.objectives)
+        p <b>Objectives</b> #{proj.description.objectives}
+
+    if(proj.thumbnail)
+        div(class="mb-4")
+            img(
+                src=proj.thumbnail 
+                style= "width:100px"
+            )
+
+    if(proj.status)
+        div(class="mb-4")
+            span Status
+            if(proj.status == "Planned")
+                span(class="badge badge-success ml-2") Planned
+
+
+
+    a(
+        href=`${prefixAdmin}/project/edit/${proj.id}`
+        class="btn btn-warning btn-sm ml-1"
+    ) Edit
+    

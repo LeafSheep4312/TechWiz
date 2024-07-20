@@ -1,0 +1,84 @@
+extends ../../layouts/default.pug
+include ../../mixins/alert.pug
+
+block main
+    +alert-error(3000)
+
+    h1(class="mb-4") Create new project 
+
+    form(
+        action=`${prefixAdmin}/project/create`
+        id="form-create-project"
+        method="POST"
+        enctype="multipart/form-data"
+    )
+
+        div(class="form-group")
+            label(for="title") Title 
+            input(
+                type="text"
+                class="form-control"
+                id="title"
+                name="title"
+            )
+        div(class="form-group")
+            label(for="desc") Description
+            textarea(
+                class="form-control"
+                id="desc"
+                name="description"
+                row="5"
+            )
+        div(class="form-group"
+            upload-image
+        )
+            label(for="thumbnail") Image 
+            input(
+                type="file"
+                class="form-control-file"
+                id="thumblnail"
+                name="thumbnail"
+                accept="image/*"
+                upload-image-input
+            )
+            img(
+            src=""
+            upload-image-preview
+            class="image-preview"
+            )
+                
+            
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusPlanned"
+                name="status"
+                value="Planned"
+            )
+            label(for="statusPlanned" class="form-check-label") Planned
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusInProgress"
+                name="status"
+                value="In Progress"
+            )
+            label(for="statusInProgress" class="form-check-label") In Progress
+        div(class="form-group form-check form-check-inline")
+            input(
+                type="radio"
+                class="form-check-input"
+                id="statusCompleted"
+                name="status"
+                value="Completed"
+            )
+            label(for="statusCompleted" class="form-check-label") Completed
+        div(class="form-group")
+            button(
+                type="submit"
+                class="btn btn-primary"
+            ) Create
+
+    script(src="/admin/js/project.js") 
