@@ -3,13 +3,12 @@ include ../../mixins/alert.pug
 
 block main
     +alert-error(3000)
-    +alert-success(3000)
 
-    h1(class="mb-4") Edit project 
+    h1(class="mb-4") Create new category
 
     form(
-        action=`${prefixAdmin}/project/edit/${proj.id}?_method=PATCH`
-        id="form-edit-project"
+        action=`${prefixAdmin}/project-category/create`
+        id="form-create-project"
         method="POST"
         enctype="multipart/form-data"
     )
@@ -21,16 +20,31 @@ block main
                 class="form-control"
                 id="title"
                 name="title"
-                value=proj.title
             )
         div(class="form-group")
-            label(for="desc") Content
+            label(for="parent-id") Parent Id
+            input(
+                type="text"
+                class="form-control"
+                id="parent-id"
+                name="parent-id"
+            )
+        div(class="form-group")
+            label(for="desc") Description
             textarea(
                 class="form-control mce"
                 id="desc"
+                name="description"
+                row="1"
+            )
+        div(class="form-group")
+            label(for="content") Content
+            textarea(
+                class="form-control mce"
+                id="content"
                 name="content"
                 row="5"
-            ) #{proj.content}
+            )
         div(class="form-group"
             upload-image
         )
@@ -38,13 +52,13 @@ block main
             input(
                 type="file"
                 class="form-control-file"
-                id="thumblnail"
+                id="thumbnail"
                 name="thumbnail"
                 accept="image/*"
                 upload-image-input
             )
             img(
-            src=proj.thumbnail
+            src=""
             upload-image-preview
             class="image-preview"
             )
@@ -57,7 +71,6 @@ block main
                 id="statusPlanned"
                 name="status"
                 value="Planned"
-                checked=(proj.status == "Planned" ? true : false)
             )
             label(for="statusPlanned" class="form-check-label") Planned
         div(class="form-group form-check form-check-inline")
@@ -67,7 +80,6 @@ block main
                 id="statusInProgress"
                 name="status"
                 value="In Progress"
-                checked=(proj.status == "In Progress" ? true : false)
             )
             label(for="statusInProgress" class="form-check-label") In Progress
         div(class="form-group form-check form-check-inline")
@@ -77,13 +89,11 @@ block main
                 id="statusCompleted"
                 name="status"
                 value="Completed"
-                checked=(proj.status == "Completed" ? true : false)
             )
             label(for="statusCompleted" class="form-check-label") Completed
         div(class="form-group")
             button(
                 type="submit"
                 class="btn btn-primary"
-            ) Update
+            ) Create
 
-    script(src="/admin/js/project.js") 

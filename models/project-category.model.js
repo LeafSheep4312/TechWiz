@@ -3,15 +3,16 @@ const slug = require("mongoose-slug-updater");
 
 mongoose.plugin(slug);
 
-const projectSchema = new mongoose.Schema({
+const projectCategorySchema = new mongoose.Schema({
     title: String,
     description:String,
-    content:String,
     thumbnail:String,
-    leader:String,
-    tag:Array,
+    parent_id:{
+        type: String,
+        default: ""
+    },
     slug: {
-        type:String,
+        type:String,    
         slug:"title",
         unique:true
     },
@@ -27,6 +28,6 @@ const projectSchema = new mongoose.Schema({
     }
 );
 
-const project = mongoose.model("project", projectSchema, "Project");
+const projectCategory = mongoose.model("projectCategory", projectCategorySchema, "Project-Category");
 
-module.exports = project;
+module.exports = projectCategory;

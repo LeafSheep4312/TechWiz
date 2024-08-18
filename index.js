@@ -1,17 +1,18 @@
 const express = require("express");
-const methodOverride = require("method-override");
+const path = require("path");
+const methodOverride = require("method-override"); //Override rest 
 const bodyParser = require("body-parser");
-const flash = require("express-flash");
+const flash = require("express-flash"); //Alert 
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 
 
-require("dotenv").config();
+require("dotenv").config(); //Env 
 
 const database = require("./config/database");
 database.connect();
 
-const systemConfig = require("./config/system");
+const systemConfig = require("./config/system"); //Path (PREFIX)
 
 const app = express();
 const port = process.env.PORT;
@@ -23,6 +24,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser("ABCD"));
 app.use(session({ cookie: { maxAge: 60000}}));
 app.use(flash());
+
+//TinyMCE
+app.use('/tinymce', express.static(path.join(__dirname,"node_modules", "tinymce")));
 
 const route = require("./routes/client/index.route");
 const routeAdmin = require("./routes/admin/index.route");

@@ -3,6 +3,9 @@ const filterStatusHelper = require("../../helpers/filter.status");
 const searchHelper = require("../../helpers/search");
 const paginationHelper = require("../../helpers/pagination");
 const systemConfig = require("../../config/system");
+
+const moments = require('moment');
+
 module.exports.index = async (req,res)=>{
 
     const filterStatus = filterStatusHelper(req.query);
@@ -32,14 +35,24 @@ module.exports.index = async (req,res)=>{
         limitItems: 5
     },req.query,countProject
     );
-
-
     // End pagination
 
-    const projects = await project.find(find).limit(objectPagination.limitItems).skip(objectPagination.skip);
+    // sort
+    let sort ={};
+    if(req.query.sortKey && req.query.sortValue){
+        sort[req.query.sortKey] = req.query.sortValue;
+    } else{
+        sort.position = "desc";
+    }
+    //end sort
+    const projects = await project.find(find)
+        .sort(sort)
+        .limit(objectPagination.limitItems)
+        .skip(objectPagination.skip);
 
     res.render("admin/pages/project/index.pug",
         {
+            moment: moments,
             pageTitle: "Project",
             projects: projects,
             filterStatus: filterStatus,
@@ -101,9 +114,6 @@ module.exports.create = async (req,res)=>{
 }
 
 module.exports.createPost = async (req,res)=>{
-    if(req.file){
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
     let newProject = new project(req.body);
     await newProject.save();
     res.redirect(`${systemConfig.prefixAdmin}/project`);
@@ -132,9 +142,6 @@ module.exports.edit = async (req,res)=>{
 
 
 module.exports.editPatch = async (req, res) => {
-    if (req.file) {
-        req.body.thumbnail = `/uploads/${req.file.filename}`;
-    }
 
     try {
 

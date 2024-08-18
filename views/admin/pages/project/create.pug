@@ -24,9 +24,17 @@ block main
         div(class="form-group")
             label(for="desc") Description
             textarea(
-                class="form-control"
+                class="form-control mce"
                 id="desc"
                 name="description"
+                row="5"
+            )
+        div(class="form-group")
+            label(for="content") Content
+            textarea(
+                class="form-control mce"
+                id="content"
+                name="content"
                 row="5"
             )
         div(class="form-group"
@@ -36,7 +44,7 @@ block main
             input(
                 type="file"
                 class="form-control-file"
-                id="thumblnail"
+                id="thumbnail"
                 name="thumbnail"
                 accept="image/*"
                 upload-image-input

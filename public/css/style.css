@@ -28,7 +28,7 @@
 }
 
 .center-image img {
-    width: auto;
+    width:100%;
 }
 
 .header .inner-contact i.fab.fa-facebook {

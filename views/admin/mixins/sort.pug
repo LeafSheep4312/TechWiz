@@ -1,0 +1,13 @@
+mixin sort()
+    div(sort)
+        select(
+            class="form-control"
+            name="sort"
+            sort-select
+        )
+            option(value="createdAt-desc") Mới nhất
+            option(value="createdAt-asc") Cũ nhất
+        button(
+            class="btn btn-danger mt-2"
+            sort-clear
+        ) Clear
